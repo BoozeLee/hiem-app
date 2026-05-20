@@ -1,0 +1,12 @@
+#!/bin/bash
+# omarchy:summary=Launch HIEM — GitHub-authenticated chat with engineering agent.
+# omarchy:args=[url]
+
+WINDOW_PATTERN="hiem-app"
+ADDR=$(hyprctl clients -j 2>/dev/null | jq -r --arg p "$WINDOW_PATTERN" '.[]|select((.class|test("\\b"+$p+"\\b";"i")) or (.title|test("HIEM";"i")))|.address' | head -n1)
+
+if [[ -n "$ADDR" ]]; then
+  hyprctl dispatch focuswindow "address:$ADDR"
+else
+  exec setsid uwsm-app -- "$HOME/.local/bin/hiem-app" "${@/--private/}"
+fi

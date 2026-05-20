@@ -1,0 +1,1 @@
+{"root":["./src/App.tsx","./src/ChatPage.tsx","./src/LoginPage.tsx","./src/main.tsx","./src/markdown.ts","./src/tauri-api.ts","./src/types.d.ts"],"errors":true,"version":"5.9.3"}

@@ -1,0 +1,64 @@
+# ──────────────────────────────────────────────────────────────────────────────
+# HIEM — default engineering agent chain
+# ──────────────────────────────────────────────────────────────────────────────
+#
+# Targets: Ollama (OLLAMA_BASE_URL → http://localhost:11434)
+# Model:    llama3.2:3b  (2 GB, already pulled)
+#
+# Diagnostics: $XDG_STATE_HOME/hiem/agent_runs.jsonl
+# Change this file on disk or via the Chain Studio frontend.
+
+type:    sequential
+name:    hiem_engineering
+description: |
+  HIEM engineering agent.  You have GitHub API access via the tools below.
+  Use [TOOL: name] / {json} when you need live data.
+
+model:     ollama/llama3.2:3b
+temperature: 0.2
+max_tokens:  4096
+loop_budget: 6
+token_budget: 4096
+
+steps:
+  - role: system
+    content: |
+      You are HIEM's engineering agent.  You work with GitHub repositories,
+      pull requests, issues, and branches via the tools listed below.
+      Always use the exact [TOOL: name]\n{json} format when calling a tool.
+      Be concise, factual, and cite specific repo names, PR numbers, or SHAs.
+
+  - role: user
+    content: "{user_message}"
+
+tools:
+  - name: whoami
+    description: Return the current GitHub authenticated user (login and avatar URL).
+    endpoint: whoami
+    args_schema: {}
+
+  - name: get_repos
+    description: List all repositories accessible to the current GitHub token.
+    endpoint: get_repos
+    args_schema: {}
+
+  - name: get_prs
+    description: List open pull requests for an owner/repo.
+    endpoint: get_prs
+    args_schema:
+      owner: str
+      repo:  str
+
+  - name: get_issues
+    description: List open issues for an owner/repo.
+    endpoint: get_issues
+    args_schema:
+      owner: str
+      repo:  str
+
+  - name: get_branches
+    description: List branches for an owner/repo.
+    endpoint: get_branches
+    args_schema:
+      owner: str
+      repo:  str
