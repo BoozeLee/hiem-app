@@ -29,7 +29,7 @@ keyring = "3.6.2"
 jsonwebtoken = { version = "9.3", features = ["use_pem"] }
 base64 = "0.22"
 rsa = { version = "0.9", features = ["pem", "sha2"] }
-pkcs8 = "0.10"
+pkcs8 = "0.11"
 chrono = { version = "0.4", features = ["serde", "std"] }
 
 # ── LangSmith tracing (Rust) ─────────────────────────────────────────────────
