@@ -42,7 +42,7 @@ serde_yaml = "0.9"
 async-trait = "0.1"
 dashmap = "6.1"
 bm25 = "2.3"
-dirs = "5.0"
+dirs = "6.0"
 uuid = { version = "1.10", features = ["v4"] }
 thiserror = "1.0"
 serde_repr = "0.1"
